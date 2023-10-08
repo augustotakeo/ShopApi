@@ -1,3 +1,12 @@
+using System;
+using Domain.Commands.Requests;
+using Domain.Commands.Responses;
+using Domain.Handlers;
+using MediatR;
+using MediatR.Pipeline;
+using Domain.Repositories.Interfaces;
+using Api.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddMediatR(cfg => { 
+        cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+        cfg.RegisterServicesFromAssembly(typeof(UserHandler).Assembly);
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
