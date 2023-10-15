@@ -1,5 +1,6 @@
 using Domain.Commands.Requests;
 using Domain.Commands.Responses;
+using Domain.Handle.Interfaces;
 using Domain.Models;
 using Domain.Repositories.Interfaces;
 using MediatR;
@@ -7,7 +8,7 @@ using System;
 
 namespace Domain.Handlers;
 
-public class UserHandler : IRequestHandler<CreateUserRequest, CreateUserResponse> {
+public class UserHandler : IUserHandler {
 
     private readonly IUserRepository UserRepository;
 
